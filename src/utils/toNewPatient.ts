@@ -1,4 +1,4 @@
-import { Gender, NewPatientEntry } from "../../types";
+import {  Gender, NewPatientEntry } from "../../types";
 import { z } from "zod";
 
 export const NewPatientEntrySchema = z.object({
@@ -7,6 +7,7 @@ export const NewPatientEntrySchema = z.object({
   ssn: z.string(),
   gender: z.nativeEnum(Gender),
   occupation: z.string(),
+  entries: z.array(z.any()).default([]),
 });
 
 export const NonSensitivePatientEntrySchema = z.object({
@@ -17,7 +18,9 @@ export const NonSensitivePatientEntrySchema = z.object({
   occupation: z.string(),
 });
 
-export  const toNewPatientEntry = (object: unknown): NewPatientEntry => {
+
+
+export const toNewPatientEntry = (object: unknown): NewPatientEntry => {
   return NewPatientEntrySchema.parse(object);
 };
 
