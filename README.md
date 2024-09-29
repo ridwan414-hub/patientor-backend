@@ -2,27 +2,57 @@
 
 This is the backend for the Patientor application, a medical record system for doctors.
 
-## Running the Application
+## Table of Contents
 
-1. Install dependencies:
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Running the Application](#running-the-application)
+- [Project Structure](#project-structure)
+- [API Endpoints](#api-endpoints)
+- [Technologies Used](#technologies-used)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v14 or later)
+- npm (v6 or later)
+
+### Installation
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/your-username/patientor-backend.git
+   ```
+
+2. Navigate to the project directory:
+   ```
+   cd patientor-backend
+   ```
+
+3. Install dependencies:
    ```
    npm install
    ```
 
-2. Start the development server:
+## Running the Application
+
+1. For development:
    ```
    npm run dev
    ```
+   The server will start on port 3001 with hot-reloading enabled.
 
-   The server will start on port 3001.
-
-3. For production, build the project and start the server:
+2. For production:
    ```
    npm run tsc
    npm start
    ```
 
-## Folder Structure
+## Project Structure
 
 ```
 patientor-backend/
@@ -54,36 +84,32 @@ patientor-backend/
 
 ## API Endpoints
 
-### GET /api/ping
-Health check endpoint.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET    | /api/ping | Health check |
+| GET    | /api/diagnoses | Retrieve all diagnoses |
+| GET    | /api/patients | Retrieve all patients (non-sensitive data) |
+| POST   | /api/patients | Add a new patient |
+| GET    | /api/patients/:id | Retrieve a specific patient by ID |
+| POST   | /api/patients/:id/entries | Add a new entry to a patient's medical record |
 
-### GET /api/diagnoses
-Retrieve all diagnoses.
+### Example: Adding a New Patient
 
-### GET /api/patients
-Retrieve all patients (non-sensitive data).
-
-### POST /api/patients
-Add a new patient.
-
-Request body:
-json
+```
+POST /api/patients
 {
-"name": "John Doe",
-"dateOfBirth": "1990-07-31",
-"ssn": "250470-555L",
-"gender": "male",
-"occupation": "Software Developer"
+  "name": "John Doe",
+  "dateOfBirth": "1990-07-31",
+  "ssn": "250470-555L",
+  "gender": "male",
+  "occupation": "Software Developer"
 }
+```
 
-### GET /api/patients/:id
-Retrieve a specific patient by ID.
+### Example: Adding a New Entry (HealthCheck)
 
-### POST /api/patients/:id/entries
-Add a new entry to a patient's medical record.
-
-Request body (example for a HealthCheck entry):
-json
+```
+POST /api/patients/:id/entries
 {
   "type": "HealthCheck",
   "description": "Annual check-up",
@@ -91,5 +117,25 @@ json
   "specialist": "Dr. House",
   "healthCheckRating": 0
 }
+```
 
 Note: The request body varies based on the entry type (HealthCheck, Hospital, or OccupationalHealthcare).
+
+## Technologies Used
+
+- TypeScript
+- Express.js
+- Zod (for data validation)
+- UUID (for generating unique IDs)
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the ISC License.
